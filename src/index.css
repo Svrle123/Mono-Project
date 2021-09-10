@@ -1,13 +1,181 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html {
+  background-image: url(Images/background.jpg);
+  background-size: cover;
+}
+.App {
+  text-align: center;
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100px;
+  background: rgb(131, 199, 221);
+  color: rgb(44, 44, 44);
+  border-bottom: 2px solid rgb(44, 44, 44);
+}
+nav h3 {
+  font-size: 35px;
+  font-weight: bold;
+}
+nav ul li {
+  font-size: 20px;
+  font-weight: 700;
+  transition: transform 0.2s;
+}
+nav ul li:hover {
+  transform: scale(1.3);
+}
+.nav-links {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+.nav-links li {
+  text-decoration: none;
+}
+table {
+  margin: 70px auto;
+  width: 90%;
+}
+table,
+tr,
+th,
+td {
+  border-collapse: collapse;
+  border: 2px solid rgb(44, 44, 44);
+}
+th {
+  background-color: rgb(131, 199, 221);
+  height: 70px;
+  width: 22.5%;
+  font-size: 22px;
+}
+th:hover {
+  background-color: rgb(92, 161, 184);
+  cursor: pointer;
+}
+td {
+  height: 60px;
+  font-size: 18px;
+}
+tr {
+  background-color: white;
+}
+tr:nth-child(even) {
+  background-color: #e8ebef;
+}
+.table-functions-wrap {
+  margin: 0 auto;
+  padding: 20px 0;
+  width: 90%;
+}
+.table-filter-wrap-home {
+  background-image: url(Images/search-icon.svg);
+  background-position: 10px;
+  background-repeat: no-repeat;
+  background-size: 25px;
+  padding-left: 50px;
+  padding-right: 20px;
+  float: left;
+  width: 25%;
+  height: 60px;
+  font-size: 30px;
+}
+.table-filter-wrap-make {
+  background-image: url(Images/search-icon.svg);
+  background-position: 10px;
+  background-repeat: no-repeat;
+  background-size: 25px;
+  padding-left: 50px;
+  padding-right: 20px;
+  float: left;
+  width: 40%;
+  height: 60px;
+  font-size: 20px;
+}
+.table-paging-wrap {
+  float: right;
+  width: 50%;
+  height: 60px;
+}
+.btn-paging-left,
+.btn-paging-right,
+.btn-paging-first,
+.btn-paging-last {
+  cursor: pointer;
+  width: 10%;
+  height: 60px;
+  font-size: 30px;
+  background: linear-gradient(to top, white 25%, rgb(131, 199, 221));
+}
+.btn-paging-left,
+.btn-paging-first {
+  float: left;
+}
+.btn-paging-right,
+.btn-paging-last {
+  float: right;
+}
+.page-numbers-home,
+.page-numbers-make {
+  height: 100%;
+  width: 60%;
+  margin: 0 auto;
+  font-size: 25px;
+  list-style: none;
+}
+.page-numbers-home li,
+.page-numbers-make li {
+  display: inline-block;
+}
+.page-numbers-home li button {
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+  margin: 0 10px;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  color: rgb(179, 255, 255);
+}
+.page-numbers-make li button {
+  background-color: transparent;
+  border: transparent;
+  border-bottom: 2px solid white;
+  border-top: 2px solid white;
+  margin: 0 10px;
+  cursor: pointer;
+  width: 26px;
+  height: 60px;
+  font-size: 30px;
+  color: rgb(179, 255, 255);
+}
+.page-numbers-home li button:hover,
+.page-numbers-make li button:hover {
+  background-color: rgb(131, 199, 221);
+  color: rgb(28, 105, 131);
+}
+.page-numbers-home li .active-page,
+.page-numbers-make li .active-page {
+  background-color: rgb(131, 199, 221);
+  color: rgb(28, 105, 131);
+}
+.split-screen-left {
+  width: 50%;
+  float: left;
+}
+.split-screen-right {
+  width: 50%;
+  float: right;
 }

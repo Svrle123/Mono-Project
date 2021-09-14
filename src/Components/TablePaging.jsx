@@ -41,23 +41,23 @@ function TablePaging({ pagingData, page }) {
         <CaretRightFill />
       </button>
       <ul className={pageStyle}>
-        {_.map(pagingData.displayPages, function (x, key) {
-          if (x === pagingData.tableParams.page) {
+        {_.map(pagingData.displayPages, function (num, key) {
+          if (num === pagingData.tableParams.page) {
             return (
               <li key={key}>
                 <button
                   className="active-page"
-                  onClick={() => pagingData.setCurrentPage(x)}
+                  onClick={() => pagingData.setCurrentPage(num)}
                 >
-                  {x}
+                  {num}
                 </button>
               </li>
             );
           } else {
             return (
               <li key={key}>
-                <button onClick={() => pagingData.setCurrentPage(x)}>
-                  {x}
+                <button onClick={() => pagingData.setCurrentPage(num)}>
+                  {num}
                 </button>
               </li>
             );

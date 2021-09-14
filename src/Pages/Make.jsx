@@ -1,22 +1,45 @@
 import React from "react";
-import TableData from "../Store/TableData";
+import FormStore from "../Store/FormStore";
+import TableStore from "../Store/TableStore";
 import TablePaging from "../Components/TablePaging";
 import TableFilter from "../Components/TableFilter";
 import Table from "../Components/Table";
-import Form from "../Components/Form";
-import FormStore from "../Store/FormStore";
+import AddForm from "../Components/AddForm";
+import DeleteForm from "../Components/DeleteForm";
+import UpdateForm from "../Components/UpdateForm";
+import { observer } from "mobx-react";
 
 function Make() {
-  const tableData = new TableData(
-    ["Name", "Abbreviation"],
+  const tableData = new TableStore(
+    ["Make", "Abbreviation"],
     "vehicletable",
     "VehicleMake",
     10
   );
+  const formData = new FormStore(
+    "vehicletable",
+    "VehicleMake",
+    "ivansvrtan",
+    "emsa-1988"
+  );
+
   return (
     <div>
       <div className="split-screen-left">
-        <Form />
+        <AddForm
+          inputs={["make", "abbreviation"]}
+          purpose={"Add"}
+          formData={formData}
+          tableData={{}}
+          table={"make"}
+        />
+        <DeleteForm resource="make" tableData={tableData} formData={formData} />
+        <UpdateForm
+          inputs={["make", "abbreviation"]}
+          resource="make"
+          tableData={tableData}
+          formData={formData}
+        />
       </div>
       <div className="split-screen-right">
         <div className="table-functions-wrap">
@@ -29,4 +52,4 @@ function Make() {
   );
 }
 
-export default Make;
+export default observer(Make);

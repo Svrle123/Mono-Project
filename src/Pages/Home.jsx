@@ -1,11 +1,12 @@
+import { observer } from "mobx-react";
 import React from "react";
 import Table from "../Components/Table";
 import TableFilter from "../Components/TableFilter";
 import TablePaging from "../Components/TablePaging";
-import TableData from "../Store/TableData";
+import TableStore from "../Store/TableStore";
 
 function Home() {
-  const tableData = new TableData(
+  const tableData = new TableStore(
     ["Make", "Abbreviation", "Model", "Launched"],
     "vehicletable",
     "VehicleModel",
@@ -23,4 +24,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default observer(Home);

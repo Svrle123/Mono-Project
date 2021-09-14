@@ -2,13 +2,15 @@ import Api from "../Services/Api";
 import _ from "lodash";
 import { action, makeObservable, observable, runInAction } from "mobx";
 
-class TableData {
+class TableStore {
   data = [];
   totalPages = 0;
   pagesArray = [];
   displayPages = [];
   displayPagesLimit = 5;
   tableParams = {};
+  clickedDocument = {};
+  doubleClickedDocument = {};
   filter = "";
   constructor(columns, key, schema, itemsPerPage) {
     makeObservable(this, {
@@ -19,10 +21,14 @@ class TableData {
       tableParams: observable,
       displayPages: observable,
       displayPagesLimit: observable,
+      clickedDocument: observable,
+      doubleClickedDocument: observable,
       getData: action,
       getPages: action,
       setCurrentPage: action,
       setDisplayPages: action,
+      setSortOrder: action,
+      setTableFilter: action,
     });
     this.columns = columns;
     this.apyKey = key;
@@ -35,24 +41,19 @@ class TableData {
       searchQuery: null,
       sort: null,
     };
-    this.services = new Api();
+    this.services = new Api(this.apyKey, this.schemaName);
+    this.secondServices = new Api(this.apyKey, this.secondSchemaName);
     this.getData();
     this.getPages();
   }
   async getData() {
-    var fetchedData = await this.services.fetchData(
-      this.apyKey,
-      this.schemaName,
-      this.tableParams
-    );
+    var fetchedData = await this.services.fetchData(this.tableParams);
     runInAction(() => {
       this.data = fetchedData;
     });
   }
   async getPages() {
     let numOfDocs = await this.services.fetchNumOfDocs(
-      this.apyKey,
-      this.schemaName,
       this.tableParams.searchQuery
     );
     this.totalPages = Math.ceil(numOfDocs / this.tableParams.rpp);
@@ -122,11 +123,11 @@ class TableData {
       return null;
     } else {
       this.tableParams.searchQuery = trimmedText;
-      this.getData(this.tableParams);
+      this.getData();
     }
     this.getPages();
     this.setDisplayPages();
   }
 }
 
-export default TableData;
+export default TableStore;

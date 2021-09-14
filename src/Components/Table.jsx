@@ -1,10 +1,11 @@
 import { toLower } from "lodash";
 import { observer } from "mobx-react";
+import { runInAction } from "mobx";
 
-function Table({ tableData }) {
+function Table({ tableData, page }) {
   return (
     <div>
-      <table>
+      <table className={`table-wrap-${page}`}>
         <thead>
           <tr>
             {tableData.columns.map((x, key) => (
@@ -24,9 +25,26 @@ function Table({ tableData }) {
         </thead>
         <tbody>
           {tableData.data.map((item, newKey) => (
-            <tr key={newKey}>
+            <tr
+              key={newKey}
+              onClick={() =>
+                runInAction(() => {
+                  tableData.doubleClickedDocument = {};
+                  tableData.clickedDocument = item;
+                })
+              }
+              onDoubleClick={() =>
+                runInAction(() => {
+                  tableData.doubleClickedDocument = item;
+                  tableData.clickedDocument = {};
+                })
+              }
+            >
               {tableData.columns.map((x, newKey) => (
-                <td key={newKey}> {item[toLower(x)]} </td>
+                <td key={newKey} className={`td-${page}`}>
+                  {" "}
+                  {item[toLower(x)]}{" "}
+                </td>
               ))}
             </tr>
           ))}

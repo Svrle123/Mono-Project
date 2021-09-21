@@ -1,10 +1,9 @@
-import Api from "../Services/Api";
 import { makeObservable, observable, action } from "mobx";
 
 class FormStore {
   inputAddValues = {};
   inputUpdateValues = {};
-  constructor(apiKey, schemaName, username, password) {
+  constructor() {
     makeObservable(this, {
       inputAddValues: observable,
       inputUpdateValues: observable,
@@ -13,17 +12,6 @@ class FormStore {
       createNewDoc: action,
       deleteDocument: action,
     });
-    this.apiKey = apiKey;
-    this.schemaName = schemaName;
-    this.username = username;
-    this.password = password;
-    this.services = new Api(
-      this.apiKey,
-      this.schemaName,
-      this.username,
-      this.password
-    );
-    this.services.loginUser();
   }
   async getInputAddValues(inputKey, inputValue) {
     this.inputAddValues[inputKey] = inputValue;
@@ -31,7 +19,7 @@ class FormStore {
   async getInputUpdateValues(inputKey, inputValue) {
     this.inputUpdateValues[inputKey] = inputValue;
   }
-  createNewDoc(parentDoc, table) {
+  createNewData(parentDoc, table) {
     if (parentDoc !== undefined) {
       parentDoc[`${table}ID`] = parentDoc.id;
       delete parentDoc.id;
@@ -51,17 +39,17 @@ class FormStore {
       }
     }
   }
-  deleteDocument(resource) {
-    const info = { id: resource, token: this.services.userToken };
-    this.services.deleteExistingResource(info);
+  deleteData(resource) {
+    const data = { id: resource, token: this.services.userToken };
+    this.services.deleteExistingResource(data);
   }
-  updateDocument(resource) {
-    const info = {
+  updateData(resource) {
+    const data = {
       id: resource,
       data: this.inputUpdateValues,
       token: this.services.userToken,
     };
-    this.services.updateExistingResource(info);
+    this.services.updateExistingResource(data);
   }
 }
 

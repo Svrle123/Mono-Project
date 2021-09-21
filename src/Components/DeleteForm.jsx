@@ -15,7 +15,7 @@ function DeleteForm({ resource, tableData, formData }) {
         </label>
         <button
           className="form-button"
-          onClick={() => formData.deleteDocument(tableData.clickedDocument.id)}
+          onClick={() => formData.deleteData(tableData.clickedDocument.id)}
         >{`Delete ${resource}!`}</button>
       </div>
     </form>

@@ -1,4 +1,3 @@
-import Api from "../Services/Api";
 import _ from "lodash";
 import { action, makeObservable, observable, runInAction } from "mobx";
 
@@ -12,7 +11,7 @@ class TableStore {
   clickedDocument = {};
   doubleClickedDocument = {};
   filter = "";
-  constructor(columns, key, schema, itemsPerPage) {
+  constructor() {
     makeObservable(this, {
       data: observable,
       filter: observable,
@@ -30,30 +29,23 @@ class TableStore {
       setSortOrder: action,
       setTableFilter: action,
     });
-    this.columns = columns;
-    this.apyKey = key;
-    this.schemaName = schema;
     this.sortOrder = "asc";
     this.sortBy = "";
     this.tableParams = {
       page: 1,
-      rpp: itemsPerPage,
+      rpp: 10,
       searchQuery: null,
       sort: null,
     };
-    this.services = new Api(this.apyKey, this.schemaName);
-    this.secondServices = new Api(this.apyKey, this.secondSchemaName);
-    this.getData();
-    this.getPages();
   }
   async getData() {
-    var fetchedData = await this.services.fetchData(this.tableParams);
+    let fetchedData = await this.services.fetchData(this.tableParams);
     runInAction(() => {
       this.data = fetchedData;
     });
   }
   async getPages() {
-    let numOfDocs = await this.services.fetchNumOfDocs(
+    let numOfDocs = await this.services.fetchNumOfRecords(
       this.tableParams.searchQuery
     );
     this.totalPages = Math.ceil(numOfDocs / this.tableParams.rpp);
@@ -69,14 +61,18 @@ class TableStore {
     });
   }
   setCurrentPage(pageNumber) {
-    if (pageNumber < 1) {
-      pageNumber = 1;
-    } else if (pageNumber > this.totalPages) {
-      pageNumber = this.totalPages;
+    if (this.totalPages !== 0) {
+      if (pageNumber < 1) {
+        pageNumber = 1;
+      } else if (pageNumber > this.totalPages) {
+        pageNumber = this.totalPages;
+      }
+      this.tableParams.page = pageNumber;
+      this.setDisplayPages();
+      this.getData();
+    } else {
+      return null;
     }
-    this.tableParams.page = pageNumber;
-    this.setDisplayPages();
-    this.getData();
   }
   setDisplayPages() {
     if (this.tableParams.page === this.displayPages[1]) {
@@ -119,14 +115,15 @@ class TableStore {
         this.getData();
         this.getPages();
         this.setDisplayPages();
+      } else {
+        return null;
       }
-      return null;
     } else {
       this.tableParams.searchQuery = trimmedText;
       this.getData();
+      this.getPages();
+      this.setDisplayPages();
     }
-    this.getPages();
-    this.setDisplayPages();
   }
 }
 

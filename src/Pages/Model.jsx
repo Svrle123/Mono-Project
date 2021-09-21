@@ -1,6 +1,7 @@
 import React from "react";
-import FormStore from "../Store/FormStore";
-import TableStore from "../Store/TableStore";
+import ModelFormStore from "../Store/ModelFormStore";
+import MakeTableStore from "../Store/MakeTableStore";
+import ModelTableStore from "../Store/ModelTableStore";
 import TablePaging from "../Components/TablePaging";
 import TableFilter from "../Components/TableFilter";
 import Table from "../Components/Table";
@@ -11,24 +12,9 @@ import UpdateForm from "../Components/UpdateForm";
 import { observer } from "mobx-react";
 
 function Model() {
-  const tableData = new TableStore(
-    ["Make", "Model", "Launched"],
-    "vehicletable",
-    "VehicleModel",
-    5
-  );
-  const secondTableData = new TableStore(
-    ["Make", "Abbreviation"],
-    "vehicletable",
-    "VehicleMake",
-    5
-  );
-  const formData = new FormStore(
-    "vehicletable",
-    "VehicleModel",
-    "ivansvrtan",
-    "emsa-1988"
-  );
+  const makeTableData = new MakeTableStore({ rpp: 5 });
+  const modelTableData = new ModelTableStore({ rpp: 5 });
+  const formData = new ModelFormStore();
 
   return (
     <div>
@@ -37,40 +23,40 @@ function Model() {
           inputs={["model", "launched"]}
           purpose={"Add"}
           formData={formData}
-          tableData={secondTableData}
+          tableData={makeTableData}
           table={"make"}
           select={
             <SelectForm
               resource="make"
-              tableData={secondTableData}
+              tableData={makeTableData}
               formData={formData}
             />
           }
         />
         <DeleteForm
           resource="model"
-          tableData={tableData}
+          tableData={modelTableData}
           formData={formData}
         />
         <UpdateForm
           inputs={["model", "launched"]}
           resource="model"
-          tableData={tableData}
+          tableData={modelTableData}
           formData={formData}
         />
       </div>
       <div className="split-screen-right">
         <div className="table-functions-wrap">
-          <TableFilter filterData={secondTableData} page="model" />
-          <TablePaging pagingData={secondTableData} page="model" />
+          <TableFilter filterData={makeTableData} page="model" />
+          <TablePaging pagingData={makeTableData} page="model" />
         </div>
-        <Table tableData={secondTableData} page="model" />
+        <Table tableData={makeTableData} page="model" />
 
         <div className="table-functions-wrap">
-          <TableFilter filterData={tableData} page="model" />
-          <TablePaging pagingData={tableData} page="model" />
+          <TableFilter filterData={modelTableData} page="model" />
+          <TablePaging pagingData={modelTableData} page="model" />
         </div>
-        <Table tableData={tableData} page="model" />
+        <Table tableData={modelTableData} page="model" />
       </div>
     </div>
   );

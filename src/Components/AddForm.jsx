@@ -29,7 +29,7 @@ function AddForm({ inputs, purpose, formData, tableData, table, select }) {
         <button
           className="form-button"
           onClick={() =>
-            formData.createNewDoc(tableData.clickedDocument, table)
+            formData.createNewData(tableData.clickedDocument, table)
           }
         >{`${purpose} document!`}</button>
       </div>

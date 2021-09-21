@@ -1,17 +1,12 @@
-import { observer } from "mobx-react";
 import React from "react";
+import ModelTableStore from "../Store/ModelTableStore";
+import { observer } from "mobx-react";
 import Table from "../Components/Table";
 import TableFilter from "../Components/TableFilter";
 import TablePaging from "../Components/TablePaging";
-import TableStore from "../Store/TableStore";
 
 function Home() {
-  const tableData = new TableStore(
-    ["Make", "Abbreviation", "Model", "Launched"],
-    "vehicletable",
-    "VehicleModel",
-    10
-  );
+  const tableData = new ModelTableStore({ rpp: 10 });
 
   return (
     <div>

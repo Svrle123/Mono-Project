@@ -35,7 +35,7 @@ function UpdateForm({ inputs, resource, tableData, formData }) {
         <button
           className="form-button"
           onClick={() =>
-            formData.updateDocument(tableData.doubleClickedDocument.id)
+            formData.updateData(tableData.doubleClickedDocument.id)
           }
         >{`Update ${resource}!`}</button>
       </div>

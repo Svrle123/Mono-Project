@@ -1,6 +1,6 @@
 import React from "react";
-import FormStore from "../Store/FormStore";
-import TableStore from "../Store/TableStore";
+import MakeFormStore from "../Store/MakeFormStore";
+import MakeTableStore from "../Store/MakeTableStore";
 import TablePaging from "../Components/TablePaging";
 import TableFilter from "../Components/TableFilter";
 import Table from "../Components/Table";
@@ -10,18 +10,8 @@ import UpdateForm from "../Components/UpdateForm";
 import { observer } from "mobx-react";
 
 function Make() {
-  const tableData = new TableStore(
-    ["Make", "Abbreviation"],
-    "vehicletable",
-    "VehicleMake",
-    10
-  );
-  const formData = new FormStore(
-    "vehicletable",
-    "VehicleMake",
-    "ivansvrtan",
-    "emsa-1988"
-  );
+  const tableData = new MakeTableStore({ rpp: 10 });
+  const formData = new MakeFormStore();
 
   return (
     <div>

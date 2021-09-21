@@ -1,7 +1,11 @@
 import React from "react";
+import AuthService from "./Services/AuthService";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
+const authorization = new AuthService();
+authorization.loginUser("ivansvrtan", "emsa-1988");
 
 ReactDOM.render(
   <React.StrictMode>

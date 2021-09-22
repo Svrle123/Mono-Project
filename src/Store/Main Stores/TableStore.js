@@ -111,6 +111,7 @@ class TableStore {
     let trimmedText = checkedText.trim();
     if (trimmedText === "") {
       if (text === "") {
+        this.tableParams.page = 1;
         this.tableParams.searchQuery = null;
         this.getData();
         this.getPages();
@@ -119,6 +120,7 @@ class TableStore {
         return null;
       }
     } else {
+      this.tableParams.page = 1;
       this.tableParams.searchQuery = trimmedText;
       this.getData();
       this.getPages();

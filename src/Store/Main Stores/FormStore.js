@@ -9,8 +9,9 @@ class FormStore {
       inputUpdateValues: observable,
       getInputAddValues: action,
       getInputUpdateValues: action,
-      createNewDoc: action,
-      deleteDocument: action,
+      createNewData: action,
+      deleteData: action,
+      updateData: action,
     });
   }
   async getInputAddValues(inputKey, inputValue) {

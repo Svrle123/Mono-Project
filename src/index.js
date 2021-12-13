@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const authorization = new AuthService();
-authorization.loginUser("ivansvrtan", "emsa-1988");
+authorization.loginUser();
 
 ReactDOM.render(
   <React.StrictMode>
